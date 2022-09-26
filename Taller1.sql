@@ -1,8 +1,8 @@
--- Database: DBReceeclaTest1
+-- Database: TALLER 1
 
--- DROP DATABASE IF EXISTS "DBReceeclaTest1";
-/*
-CREATE DATABASE "DBReceeclaTest1"
+-- DROP DATABASE IF EXISTS "TALLER 1";
+
+CREATE DATABASE "TALLER 1"
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -11,8 +11,7 @@ CREATE DATABASE "DBReceeclaTest1"
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
-	
-*/
+
 CREATE TABLE Sector ( 
 	Name_Sector text PRIMARY KEY,
 	km INT,
@@ -28,16 +27,11 @@ CREATE TABLE Client (
 
 CREATE TABLE Distribute (
 	Name_Sector_Address_Sucursal text PRIMARY KEY,
-	Name_Sector text FOREING KEY,
-	Address_Sucursal text PRIMARY KEY
+	Name_Sector text FOREIGN KEY,
+	Address_Sucursal text FOREIGN KEY
 );
 
-CREATE TABLE 
-
-
-
-
-
-
-
-	
+CREATE TABLE Sucursal (
+	Address text PRIMARY KEY,
+	Rut_manager text FOREIGN KEY
+);
