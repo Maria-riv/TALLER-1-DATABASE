@@ -38,7 +38,7 @@ create table Jefe(
 
 create table Distribute(
     id_distribute text not null,
-    name_sector text,
+    name_sector text not null,
     address_sucursal text not null,
     primary key(id_distribute) ,
     foreign key (name_sector) references Sector,
@@ -50,12 +50,12 @@ create table Truck(
 );
 
 create table Registro(
+	id_registro int,
 	date_registro date not null,
 	rut text not null,
 	patente text not null,
-	primary key(date_registro),
+	primary key(id_registro),
 	foreign key (patente) references Truck,
 	foreign key (rut) references Worker
 
 );
-
