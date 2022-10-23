@@ -1,0 +1,53 @@
+--Sucursal con mas trabajdores
+select s.address_sucursal, count(w.rut) as cantidad_de_trabajadores from sucursal as s
+inner join worker as w ON w.address_sucursal = s.address_sucursal
+group by s.address_sucursal
+having count(w.rut) = (
+	select count(rut) from worker
+	group by address_sucursal
+	order by address_sucursal DESC
+	limit 1
+)
+order by 2 desc
+
+--Nombres de trabajadores de la sucursal del punto anterior
+select * from worker as w
+where w.address_sucursal = (
+	select y.address_sucursal from sucursal as y
+	inner join worker as x ON x.address_sucursal = y.address_sucursal
+	group by y.address_sucursal
+	having count(x.rut) = (
+	select count(rut) from worker
+	group by address_sucursal
+	order by address_sucursal DESC
+	limit 1
+	)
+)
+
+-- Jefe con mas trabajadores a cargo
+select * from jefe
+where jefe.address_sucursal = (
+	select y.address_sucursal from sucursal as y
+	inner join worker as x ON x.address_sucursal = y.address_sucursal
+	group by y.address_sucursal
+	having count(x.rut) = (
+	select count(rut) from worker
+	group by address_sucursal
+	order by address_sucursal DESC
+	limit 1
+	)
+)
+
+--Calcular y actualizar clientes
+select count(client.rut) as cantidad_de_clientes from client
+
+--Sector con la menor cantidad de clientes
+select * from sector
+order by client_quantity asc
+limit 1
+
+--Trabajador con mas registros en un mes
+select rut,to_char(date_registro,'Mon'),count(rut) as cantidad_de_registros 
+from registro
+group by to_char(date_registro,'Mon'),rut
+order by count(rut)desc
