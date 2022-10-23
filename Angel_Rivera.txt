@@ -1,0 +1,217 @@
+--Creación de tablas
+
+create table Sector(
+   name_sector text not null,
+   km int,
+   client_quantity int,
+   primary key(name_sector)
+);
+
+CREATE TABLE Client(
+   rut text not null,
+   name_sector text,
+   address text not null,
+   primary key(rut),
+   foreign key (name_sector) REFERENCES Sector
+);
+
+create table Sucursal(
+	address_sucursal text not null,
+	primary key(address_sucursal)
+
+);
+create table Worker(
+	rut text not null,
+	address_sucursal text not null,
+	name text not null,
+	email text unique,
+	primary key(rut),
+	foreign key (address_sucursal) references Sucursal
+
+);
+create table Jefe(
+	rut_jefe text not null,
+	address_sucursal text,
+	primary key(rut_jefe),
+	foreign key (address_sucursal) references Sucursal,
+	foreign key (rut_jefe) references Worker
+	
+);
+
+create table Distribute(
+    id_distribute text not null,
+    name_sector text not null,
+    address_sucursal text not null,
+    primary key(id_distribute) ,
+    foreign key (name_sector) references Sector,
+	foreign key (address_sucursal) references Sucursal
+);
+create table Truck(
+	patente text not null,
+	primary key(patente)
+);
+
+create table Registro(
+	id_registro int,
+	date_registro date not null,
+	rut text not null,
+	patente text not null,
+	primary key(id_registro),
+	foreign key (patente) references Truck,
+	foreign key (rut) references Worker
+
+);
+
+--Poblando las tablas
+
+-- SECTORES
+
+insert into sector values ('sector1','12',4);
+insert into sector values ('sector2','132',1);
+insert into sector values ('sector3','15',6);
+insert into sector values ('sector4','165',7);
+insert into sector values ('sector5','162',5);
+insert into sector values ('sector6','16',2);
+insert into sector values ('sector7','11',3);
+
+
+-- CLIENTES
+
+insert into client values ('rut1','sector1','addres1');--
+insert into client values ('rut2','sector1','addres2');
+insert into client values ('rut3','sector1','addres3');
+insert into client values ('rut4','sector1','addres4');
+insert into client values ('rut5','sector2','addres5');--
+insert into client values ('rut6','sector3','addres6');
+insert into client values ('rut7','sector3','addres7');
+insert into client values ('rut8','sector3','addres8');
+insert into client values ('rut9','sector3','addres9');
+insert into client values ('rut10','sector3','addres10');
+insert into client values ('rut11','sector3','addres11');--
+insert into client values ('rut12','sector4','addres12');
+insert into client values ('rut13','sector4','addres13');
+insert into client values ('rut14','sector4','addres14');
+insert into client values ('rut15','sector4','addres15');
+insert into client values ('rut16','sector4','addres16');
+insert into client values ('rut17','sector4','addres17');
+insert into client values ('rut18','sector4','addres18');--
+insert into client values ('rut19','sector5','addres19');
+insert into client values ('rut20','sector5','addres20');
+insert into client values ('rut21','sector5','addres21');
+insert into client values ('rut22','sector5','addres22');
+insert into client values ('rut23','sector5','addres23');
+insert into client values ('rut24','sector5','addres24');--
+insert into client values ('rut25','sector6','addres25');
+insert into client values ('rut26','sector6','addres26');
+insert into client values ('rut27','sector7','addres27');
+insert into client values ('rut28','sector7','addres28');
+insert into client values ('rut29','sector7','addres29');
+
+--SUCURSAL
+
+insert into sucursal values ('ad1');
+insert into sucursal values ('ad2');
+insert into sucursal values ('ad3');
+insert into sucursal values ('ad4');
+
+-- WORKER
+
+insert into worker values ('rut_11','ad1','nombre_11','email_11');
+insert into worker values ('rut_12','ad1','nombre_12','email_12');
+insert into worker values ('rut_13','ad1','nombre_13','email_13');
+insert into worker values ('rut_14','ad1','nombre_14','email_14');
+insert into worker values ('rut_15','ad1','nombre_15','email_15');
+insert into worker values ('rut_16','ad1','nombre_16','email_16');-- ad1
+insert into worker values ('rut_17','ad2','nombre_17','email_17');
+insert into worker values ('rut_18','ad2','nombre_18','email_18');
+insert into worker values ('rut_19','ad2','nombre_19','email_19');
+insert into worker values ('rut_1','ad1','nombre_1','email_1');
+insert into worker values ('rut_2','ad2','nombre_2','email_2');
+insert into worker values ('rut_3','ad3','nombre_3','email_3');
+insert into worker values ('rut_4','ad4','nombre_4','email_4');
+insert into worker values ('rut_5','ad2','nombre_5','email_5');--ad2
+insert into worker values ('rut_6','ad3','nombre_6','email_6');
+insert into worker values ('rut_7','ad3','nombre_7','email_7');
+insert into worker values ('rut_8','ad3','nombre_8','email_8');
+insert into worker values ('rut_9','ad3','nombre_9','email_9');
+insert into worker values ('rut_10','ad3','nombre_10','email_10');--ad3
+insert into worker values ('rut_21','ad4','nombre_21','email_21');
+insert into worker values ('rut_22','ad4','nombre_22','email_22');
+insert into worker values ('rut_23','ad4','nombre_23','email_23');
+insert into worker values ('rut_24','ad4','nombre_24','email_24');
+insert into worker values ('rut_25','ad4','nombre_25','email_25');
+insert into worker values ('rut_26','ad4','nombre_26','email_26');
+insert into worker values ('rut_27','ad4','nombre_27','email_27');
+insert into worker values ('rut_28','ad4','nombre_28','email_28');--ad4
+
+
+-- JEFE
+
+insert into jefe values ('rut_1','ad1');
+insert into jefe values ('rut_2','ad2');
+insert into jefe values ('rut_3','ad3');
+insert into jefe values ('rut_4','ad4');
+
+-- DISTRIBUTE
+
+insert into distribute values ('id_1','sector1','ad1');
+insert into distribute values ('id_2','sector1','ad1');
+insert into distribute values ('id_3','sector1','ad1');
+insert into distribute values ('id_4','sector1','ad2');
+insert into distribute values ('id_5','sector1','ad2');--
+insert into distribute values ('id_6','sector2','ad2');
+insert into distribute values ('id_7','sector2','ad3');
+insert into distribute values ('id_8','sector2','ad3');
+insert into distribute values ('id_9','sector2','ad3');
+insert into distribute values ('id_10','sector2','ad3');--
+insert into distribute values ('id_11','sector3','ad1');
+insert into distribute values ('id_12','sector3','ad1');
+insert into distribute values ('id_13','sector3','ad2');--
+insert into distribute values ('id_14','sector4','ad1');
+insert into distribute values ('id_15','sector4','ad1');
+insert into distribute values ('id_16','sector4','ad1');
+insert into distribute values ('id_17','sector4','ad2');
+insert into distribute values ('id_18','sector4','ad3');
+insert into distribute values ('id_19','sector4','ad4');
+insert into distribute values ('id_20','sector5','ad3');
+insert into distribute values ('id_21','sector5','ad4');
+
+-- TRUCK
+
+insert into truck values ('p1');
+insert into truck values ('p2');
+insert into truck values ('p3');
+insert into truck values ('p4');
+
+-- REGISTRO
+
+insert into registro values (1,'2022-01-12','rut_11','p1');
+insert into registro values (2,'2022-01-12','rut_12','p2');
+insert into registro values (3,'2022-02-11','rut_20','p1');
+insert into registro values (4,'2022-02-12','rut_11','p3');
+insert into registro values (5,'2022-02-09','rut_1','p4');
+insert into registro values (6,'2022-02-03','rut_28','p2');
+insert into registro values (7,'2022-02-20','rut_15','p1');
+insert into registro values (8,'2022-02-16','rut_19','p3');
+insert into registro values (9,'2022-03-26','rut_14','p2');
+insert into registro values (10,'2022-03-02','rut_9','p1');
+insert into registro values (11,'2022-03-12','rut_3','p4');
+insert into registro values (12,'2022-03-12','rut_28','p3');
+insert into registro values (13,'2022-03-03','rut_24','p4');
+insert into registro values (14,'2022-03-22','rut_13','p1');
+insert into registro values (15,'2022-03-14','rut_4','p2');
+insert into registro values (16,'2022-04-19','rut_17','p1');
+insert into registro values (17,'2022-05-10','rut_23','p1');
+insert into registro values (18,'2022-04-19','rut_21','p2');
+insert into registro values (19,'2022-05-01','rut_20','p4');
+insert into registro values (20,'2022-07-12','rut_11','p4');
+insert into registro values (21,'2022-01-13','rut_11','p2');
+insert into registro values (22,'2022-01-14','rut_11','p1');
+insert into registro values (23,'2022-02-07','rut_5','p4');
+insert into registro values (24,'2022-01-12','rut_11','p1');
+insert into registro values (25,'2022-02-12','rut_19','p3');
+insert into registro values (26,'2022-02-18','rut_19','p2');
+insert into registro values (27,'2022-03-01','rut_24','p4');
+insert into registro values (28,'2022-05-15','rut_23','p1');
+insert into registro values (29,'2022-04-17','rut_17','p2');
+insert into registro values (30,'2022-03-06','rut_14','p3');
